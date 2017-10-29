@@ -1,3 +1,5 @@
+## Disclaimer: I have not given credit to sources from which we took the w2v code and modified. Will update it with right credits soon.
+
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, TfidfVectorizer
 from gensim.models.word2vec import Word2Vec
 from gensim.models.phrases import Phraser
@@ -151,27 +153,12 @@ class TfidfEmbeddingVectorizer(object):
 
     @staticmethod
     def sentenceToWordlist(sentence, removeStopwords=True):
-        # Function to convert a document to a sequence of words,
-        # optionally removing stop words.  Returns a list of words.
-        #
-        # 1. Remove HTML
-        # sentence_text = BeautifulSoup(sentence).get_text()
-        # print 'getting sent:' + sentence
         sentence_text = sentence
-        #
-        # 2. Remove non-letters
         sentence_text = re.sub("[^a-zA-Z0-9]", " ", sentence_text)
-        #
-        # 3. Convert words to lower case and split them
         words = sentence_text.lower().split()
-        #
-        # 4. Optionally remove stop words (false by default)
         if removeStopwords:
-            # stops = set(stopwords.words("english"))
             words = [w for w in words if not w in stops]
         words = [w for w in words if len(w) > 1]
-        #
-        # 5. Return a list of words
         return (words)
 
     def return_max_idf(self):
@@ -238,15 +225,6 @@ class TfidfEmbeddingVectorizer(object):
         return zipped_sentences[best_candidate_idx][1], zipped_sentences[best_candidate_idx][0], max_sim
 
 
-# class MySentences(object):
-#     def __init__(self, dirname):
-#         self.dirname = dirname
-#     def __iter__(self):
-#         for fname in os.listdir(self.dirname):
-#             for line in open(os.path.join(self.dirname, fname)):
-#                 yield TfidfEmbeddingVectorizer.sentenceToWordlist(line)
-
-
 class MySentences(object):
     def __init__(self, file_name):
         self.file_name = file_name
@@ -265,8 +243,6 @@ class MyHeroEmbedding():
         self.w2v_path = w2v_path
 
 
-
-
     def train(self):
         bigram_transformer = gensim.models.Phrases(self.sentences, min_count=2, threshold=2)
         bigram_transformer.save(self.phraser_path)
@@ -281,9 +257,9 @@ class MyHeroEmbedding():
 
 
 def main():
-    traindatapath = 'corpus.json'
-    phraser_path = 'hero_phraser'
-    w2v_path = 'hero_word2vec'
+    traindatapath = '../data/corpus.json'
+    phraser_path = '../data/hero_phraser' # Phraser for BBT script
+    w2v_path = '../data/hero_word2vec' # Sheldon model
 
     myemb = MyHeroEmbedding(traindatapath, phraser_path, w2v_path)
     
