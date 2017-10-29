@@ -1,5 +1,3 @@
-## Disclaimer: I have not given credit to sources from which we took the w2v code and modified. Will update it with right credits soon.
-
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, TfidfVectorizer
 from gensim.models.word2vec import Word2Vec
 from gensim.models.phrases import Phraser

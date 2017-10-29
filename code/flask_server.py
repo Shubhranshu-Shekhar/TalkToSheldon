@@ -4,13 +4,13 @@ import json
 import cloudpickle as pickle
 from flask_cors import CORS, cross_origin
 
-with open('finalmodel', 'r') as fp:
+with open('../data/finalmodel', 'r') as fp:
 	model = pickle.load(fp)
 
-with open('sentences', 'r') as fp:
+with open('../data/sentences', 'r') as fp:
 	sentences = pickle.load(fp)
 
-with open('z', 'r') as fp:
+with open('../data/z', 'r') as fp:
 	z = pickle.load(fp)
 
 
